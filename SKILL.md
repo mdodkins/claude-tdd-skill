@@ -1,13 +1,11 @@
 ---
 name: tdd
 description: >
-  This skill should be used when the user asks to implement, build, create, fix, or write
-  code using Test Driven Development. TRIGGER when the user mentions "TDD", "test driven",
-  "test first", "red green refactor", "write tests first", or asks to "implement" something
-  in a test-driven way. Also trigger when the user wants to develop any feature and
-  emphasises writing tests before code. DO NOT TRIGGER when the user is just asking
-  questions about TDD theory, wants to write tests for already-existing code, or is doing
-  exploratory/spike work.
+  Use TDD for all code-writing tasks. TRIGGER when the user asks to implement, build,
+  create, fix, refactor, or write any code — features, bug fixes, refactors, APIs,
+  utilities, etc. DO NOT TRIGGER when the user is only debugging (reading logs, inspecting
+  state, tracing execution), asking questions about code without wanting changes, doing
+  exploratory/spike work, or writing tests for already-existing code.
 ---
 
 # Test Driven Development (TDD)
