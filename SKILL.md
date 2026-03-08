@@ -23,17 +23,23 @@ Follow this cycle for every behaviour. Never skip a phase.
 1. Choose the next behaviour from the test list.
 2. Write ONE test asserting ONE new behaviour. Name it as a behaviour specification
    (e.g., `test_returns_empty_list_when_no_items_match`).
-3. Run the test. It must fail.
-4. Verify it fails for the RIGHT reason — a wrong value, missing method, or incorrect
-   behaviour. A failure due to syntax errors, import errors, or misconfigured tests means
-   the test itself needs fixing first, because those failures don't prove anything about
-   the behaviour under test.
-5. If the test already passes, it is not testing new behaviour — discard it and write a
+3. **The test must compile, link, and run.** If the test references functions or methods
+   that don't exist yet (common in compiled languages like C/C++/Rust/Go/Java), add
+   minimal stubs first — declare the function in the header and provide an empty body
+   (or return a default value) in the source file. These stubs are scaffolding to make
+   the test runnable, not production code. Do NOT write any real logic in stubs.
+4. Run the test. It must fail.
+5. Verify it fails for the RIGHT reason — a wrong return value, an incorrect state, or
+   missing behaviour. The test output must show a **test assertion failure**, not a
+   compile error, linker error, or crash. If it fails for the wrong reason, fix the test
+   or stubs until it fails on an assertion.
+6. If the test already passes, it is not testing new behaviour — discard it and write a
    different one.
 
-**Run the test and confirm the failure before moving to Green.** Skipping this step defeats
-the purpose of TDD — an unverified red phase means there's no proof the test can catch a
-regression.
+**Run the test and confirm the assertion failure before moving to Green.** Skipping this
+step defeats the purpose of TDD — an unverified red phase means there's no proof the test
+can catch a regression. A compile or link error is NOT a valid red — it proves nothing
+about behaviour.
 
 ### GREEN: Write the Minimum Code to Pass
 
@@ -138,3 +144,6 @@ Run the full test suite one final time to confirm everything passes.
   only when green; add behaviour only through a new failing test.
 - **Skipping test runs** removes the evidence that TDD is working. Every phase
   transition requires actually running tests.
+- **Treating compile/link errors as Red** (compiled languages). A test that doesn't
+  compile or link never ran — it proves nothing about behaviour. Add stubs to make the
+  test runnable, then confirm it fails on an assertion. Only then is it genuinely Red.
