@@ -2,6 +2,22 @@
 
 A custom skill that puts Claude into strict Test Driven Development mode, enforcing the Red-Green-Refactor cycle for every behaviour implemented.
 
+## Prerequisites
+
+You must be authenticated with the GitHub CLI and have git configured to use it for HTTPS credentials:
+
+```bash
+gh auth login
+gh auth setup-git
+```
+
+If you're already logged in but using SSH, switch to HTTPS and configure the credential helper:
+
+```bash
+gh auth login --hostname github.com --git-protocol https
+gh auth setup-git
+```
+
 ## Installation
 
 ### From the command line (recommended)
@@ -9,7 +25,7 @@ A custom skill that puts Claude into strict Test Driven Development mode, enforc
 Register this repo as a plugin marketplace, then install:
 
 ```
-/plugin marketplace add mdodkins/tdd-skill
+/plugin marketplace add mdodkins/claude-tdd-skill
 /plugin install tdd@mdodkins-tdd
 ```
 
