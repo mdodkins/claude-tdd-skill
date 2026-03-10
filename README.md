@@ -20,7 +20,7 @@ gh auth setup-git
 
 ## Installation
 
-### From the command line (recommended)
+### From the Claude Code command line (recommended)
 
 Register this repo as a plugin marketplace, then install:
 
