@@ -1,0 +1,21 @@
+{
+  "name": "mdodkins-tdd",
+  "owner": {
+    "name": "mdodkins"
+  },
+  "metadata": {
+    "description": "Strict TDD skill for Claude Code",
+    "version": "1.0.0"
+  },
+  "plugins": [
+    {
+      "name": "tdd",
+      "description": "Strict Red-Green-Refactor TDD workflow for all code-writing tasks",
+      "source": "./",
+      "strict": false,
+      "skills": [
+        "./skills/tdd"
+      ]
+    }
+  ]
+}

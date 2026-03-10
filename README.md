@@ -4,54 +4,29 @@ A custom skill that puts Claude into strict Test Driven Development mode, enforc
 
 ## Installation
 
-There are three ways to install the skill depending on your needs.
+### From the command line (recommended)
 
-### Option 1: Personal skill (available in all your projects)
+Register this repo as a plugin marketplace, then install:
 
-Copy the skill into your personal skills folder:
+```
+/plugin marketplace add mdodkins/tdd-skill
+/plugin install tdd@mdodkins-tdd
+```
 
-**Linux / macOS:**
+### Manual installation
+
+Copy the skill file into your personal skills folder:
+
 ```bash
 mkdir -p ~/.claude/skills/tdd
-cp SKILL.md ~/.claude/skills/tdd/SKILL.md
+cp skills/tdd/SKILL.md ~/.claude/skills/tdd/SKILL.md
 ```
 
-**Windows (PowerShell):**
-```powershell
-New-Item -ItemType Directory -Force -Path "$env:USERPROFILE\.claude\skills\tdd"
-Copy-Item SKILL.md "$env:USERPROFILE\.claude\skills\tdd\SKILL.md"
-```
+Or for a specific project, copy it into the project's `.claude` directory and commit it:
 
-### Option 2: Symlink (available everywhere, editable from one place)
-
-If you want to keep developing the skill, symlink it so edits take effect immediately across all projects:
-
-**Linux / macOS:**
-```bash
-mkdir -p ~/.claude/skills
-ln -s /path/to/tdd-skill ~/.claude/skills/tdd
-```
-
-**Windows (PowerShell, run as Administrator):**
-```powershell
-New-Item -ItemType Directory -Force -Path "$env:USERPROFILE\.claude\skills"
-New-Item -ItemType SymbolicLink -Path "$env:USERPROFILE\.claude\skills\tdd" -Target "C:\path\to\tdd-skill"
-```
-
-### Option 3: Project skill (for a specific repo, shareable with your team)
-
-Copy into the project's `.claude` directory and commit it to version control:
-
-**Linux / macOS:**
 ```bash
 mkdir -p .claude/skills/tdd
-cp /path/to/tdd-skill/SKILL.md .claude/skills/tdd/SKILL.md
-```
-
-**Windows (PowerShell):**
-```powershell
-New-Item -ItemType Directory -Force -Path ".claude\skills\tdd"
-Copy-Item "C:\path\to\tdd-skill\SKILL.md" ".claude\skills\tdd\SKILL.md"
+cp /path/to/tdd-skill/skills/tdd/SKILL.md .claude/skills/tdd/SKILL.md
 ```
 
 ### Verifying installation
@@ -73,15 +48,11 @@ When triggered, this skill instructs Claude to:
 - Write the minimum production code demanded by failing tests
 - Refactor both production and test code
 
-## Trigger Words
+## Trigger Behaviour
 
-The skill activates when the user mentions TDD-related terms alongside a request to write code:
-- "TDD", "test driven", "test first"
-- "red green refactor", "write tests first"
-- "implement" (in a test-driven context)
-- Any request to build/create/fix code with an emphasis on writing tests before code
+The skill auto-triggers when you ask Claude to implement, build, create, fix, refactor, or write code.
 
-It does **not** trigger for questions about TDD theory, writing tests for existing code, or exploratory/spike work.
+It does **not** trigger for debugging, questions about code, exploratory/spike work, or writing tests for already-existing code.
 
 ## Design Decisions & Optimisation
 
@@ -114,19 +85,18 @@ The official docs emphasise: *"Claude is already very smart. Only add context Cl
 Skill descriptions are the primary triggering mechanism and share a combined character budget (~2% of context window, ~16K chars fallback) across all installed skills. A bloated description is more costly than a longer body, because descriptions are always loaded while the body only loads on trigger.
 
 The description was written to be:
-- **Third-person** ("This skill should be used when...") — required format per official docs
 - **Specific** — includes exact trigger phrases users would say
 - **Pushy** — the skill-creator advises making descriptions "a little bit pushy" to combat under-triggering
 
 ### Size is fine as-is
 
-The skill body is ~118 lines / ~1,000 words. The recommended limit is <500 lines. Progressive disclosure (splitting into reference files) is unnecessary at this size. If the skill grows significantly, detailed content should move to a `references/` directory.
+The skill body is ~150 lines / ~1,000 words. The recommended limit is <500 lines. Progressive disclosure (splitting into reference files) is unnecessary at this size. If the skill grows significantly, detailed content should move to a `references/` directory.
 
 ## Token Budget & Length Guidelines
 
 | Metric | Limit | This Skill |
 |--------|-------|-----------|
-| SKILL.md body | <500 lines | ~118 lines |
+| SKILL.md body | <500 lines | ~150 lines |
 | Description field | Max 1024 chars | ~500 chars |
 | All skill descriptions combined | ~2% of context window (~16K chars) | N/A |
 
